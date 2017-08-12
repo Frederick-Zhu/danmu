@@ -5,11 +5,16 @@ import sys
 from PyQt4 import QtCore
 from PyQt4 import QtGui
 
+from client.system_tray import SystemTray
+
 
 class MainWindow(QtGui.QWidget):
     def __init__(self):
         # 初始化QWidget
         QtGui.QWidget.__init__(self)
+
+        # 初始化系统托盘图标
+        self.system_tray = SystemTray(self)
 
         # 创建根布局
         layout = QtGui.QVBoxLayout(self)
@@ -36,18 +41,17 @@ class MainWindow(QtGui.QWidget):
         self.button_config = QtGui.QPushButton('&Config')
         self.button_about = QtGui.QPushButton('&About')
         self.button_about.clicked.connect(self.on_button_about_clicked)
+        self.button_hide.clicked.connect(self.on_button_hide_clicked)
         h_box_layout.addWidget(self.button_hide)
         h_box_layout.addWidget(self.button_config)
         h_box_layout.addWidget(self.button_about)
         layout.addLayout(h_box_layout)
-
 
         # 创建第四行布局
         h_box_layout = QtGui.QHBoxLayout()
         self.button_start = QtGui.QPushButton('&Start')
         h_box_layout.addWidget(self.button_start)
         layout.addLayout(h_box_layout)
-
 
         # 设置窗口只能关闭和最小化
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint
