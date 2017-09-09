@@ -6,6 +6,7 @@ from PyQt4 import QtCore
 from PyQt4 import QtGui
 
 from client.system_tray import SystemTray
+from client.about_window import AboutWindow
 
 
 class MainWindow(QtGui.QWidget):
@@ -74,7 +75,8 @@ class MainWindow(QtGui.QWidget):
 
     @QtCore.pyqtSlot()
     def on_button_about_clicked(self):
-        QtGui.QMessageBox.information(self, 'About', 'About')
+        # QtGui.QMessageBox.information(self, 'About', 'About')
+        AboutWindow(self)
 
 
 if __name__ == '__main__':
