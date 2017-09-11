@@ -14,8 +14,15 @@ class MainWindow(QtGui.QWidget):
         # 初始化QWidget
         QtGui.QWidget.__init__(self)
 
+
+        self.window_about = None # 关于对话框占位变量
+        self.flag_window_about = False # 关于对话框Flag
+
         # 初始化系统托盘图标
         self.system_tray = SystemTray(self)
+
+        # 绑定系统托盘图标菜单动作
+        self.system_tray.action_show.triggered.connect(self.showEvent)
 
         # 创建根布局
         layout = QtGui.QVBoxLayout(self)
@@ -76,7 +83,16 @@ class MainWindow(QtGui.QWidget):
     @QtCore.pyqtSlot()
     def on_button_about_clicked(self):
         # QtGui.QMessageBox.information(self, 'About', 'About')
-        AboutWindow(self)
+        self.window_about = AboutWindow(self)
+        self.flag_window_about = True
+
+    def hideEvent(self, QHideEvent):
+        if self.flag_window_about:
+            self.window_about.hide()
+
+    def showEvent(self, QShowEvent):
+        if self.flag_window_about:
+            self.window_about.show()
 
 
 if __name__ == '__main__':

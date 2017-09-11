@@ -35,3 +35,6 @@ class AboutWindow(QtGui.QMessageBox):
 
         # 显示对话框
         self.show()
+
+    def closeEvent(self, QCloseEvent):
+        self.parent().flag_window_about = False
